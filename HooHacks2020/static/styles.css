@@ -1,0 +1,204 @@
+/* gets rid of white space */
+body { margin:0; 
+    font-family: 'Quicksand', sans-serif;
+} 
+
+
+html{
+    scroll-behavior: smooth;
+    overflow: hidden;
+  }
+
+:root {
+    --maroon-color:rgb(179, 86, 0);
+    --brownish: rgb(224, 168, 104);
+}
+
+
+
+#map_sidenav {
+    height: 120vh;
+    display: block;
+}
+
+#sidenav{
+    float: right;
+    background-color: rgb(255,250,240);
+    width: 25%;
+    height: 90%;
+}
+
+#sidenav_header{
+    background-color: rgb(26, 25, 25);
+    width : 100%;
+    height : 10%;
+    border-bottom: 3px solid white;
+}
+
+#membersinfo {
+    background-color: rgb(43, 43, 43);
+    width : 100%;
+    height : 82%;
+    overflow: scroll;
+}
+
+.memberdiv{
+    background-color: rgb(43, 43, 43);
+    border-bottom: 3px solid white;
+    width : 100%;
+    height : 30%;
+    color: white;
+    font-size: 25px;
+    float:left;
+    padding-left: 8px;
+    padding-top: 10px;
+}
+
+
+
+.givebutton {
+  position: relative;
+  display:block;
+  height: 45px;
+  width: 60%;
+  margin: 20px 70px;
+  padding: 5px 5px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: white;
+  border: 2px var(--brownish) solid;
+  border-radius: 4px;
+  text-transform: uppercase;
+  outline: 0;
+  overflow:hidden;
+  background: none;
+  z-index: 1;
+  cursor: pointer;
+  transition:         0.08s ease-in;
+  -o-transition:      0.08s ease-in;
+  -ms-transition:     0.08s ease-in;
+  -moz-transition:    0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+}
+
+.givebutton:hover {
+  color: whitesmoke;
+}
+
+.givebutton:before {
+  content: "";
+  position: absolute;
+  background: var(--brownish);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in;
+}
+
+.givebutton:hover:before {
+  top: 0;
+}
+
+.colored{
+    color: var(--brownish)
+}
+
+.topnav{
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(43, 43, 43);
+    background-size: cover;
+    display:flex;
+    z-index: 1;
+}
+
+#textbox {
+    position: absolute;
+    left: 29%;
+    top: 30%;
+    height: 500px;
+    width : 600px;
+}
+
+#logindiv {
+    display:flex;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 20%;
+}
+
+
+#links {
+    width: 75%;
+}
+
+#logintext {
+    font-weight: bold;
+    float: left;
+    color: rgb(255, 218, 166);
+    text-align: center;
+    padding: 1% 5%;
+    text-decoration: none;
+    font-size: 2.5vw;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.topnav a {
+    position: relative;
+    font-weight: bold;
+    float: right;
+    color: rgb(255, 255, 255);
+    text-align: right;
+    padding: 0.5% 1.5%;
+    top: 30%;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+    
+    }
+
+/* line under links */
+.topnav a:before{
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 2px;
+    bottom: 0;
+    left: 10%;
+    background-color: rgb(255, 218, 166);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+    
+}
+.topnav a:hover:before {
+    
+    visibility: visible;
+    transform: scaleX(1);
+  }
+
+.topnav a:hover {
+    font-weight: bolder;
+    font-size: 21px;
+    color: var(--maroon-color);
+    text-decoration: none;
+}
+
+#live {
+    margin-top: 25px;
+    width: 12vw; 
+}
+.updates{
+    height : 50px;
+    text-align: left;
+    font-size: 1.5vw;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+#navbar {
+    overflow: hidden;
+}

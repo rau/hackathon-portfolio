@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #map {
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    /* float: left; */
+
+  }
+
+.mapboxgl-popup {
+    max-width: 200px;
+                  }
+
+  .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }

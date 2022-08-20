@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='map.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+  <style>
+    .marker {
+      background-image: url('static/mapbox-icon.png');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function openForm() {
+      if (document.getElementById("popupForm").style.display == "block"){
+        closeForm()
+        return;
+      }
+      document.getElementById("popupForm").style.display = "block";
+      document.getElementById("fullpage").style.overflow = "hidden";
+      }
+    function closeForm() {
+      document.getElementById("popupForm").style.display = "none";
+      // document.getElementById("fullpage").style.overflow = "visible";
+    }
+    function openFAQ(){
+      if (document.getElementById("FAQmodal").style.display == "block"){
+        closeFAQ()
+        return;
+      }
+      document.getElementById("FAQmodal").style.display = "block"
+      // document.getElementById("fullpage").style.overflow = "hidden";
+
+    }
+    function closeFAQ() {
+        document.getElementById("FAQmodal").style.display = "none"
+        document.getElementById("fullpage").style.overflow = "visible";
+      }
+
+      function openAbout() {
+          if (document.getElementById("ABOUTmodal").style.display == "block") {
+            closeFAQ()
+            return;
+          }
+          document.getElementById("ABOUTmodal").style.display = "block"
+          // document.getElementById("fullpage").style.overflow = "hidden";
+
+        }
+        function closeAbout() {
+          document.getElementById("ABOUTmodal").style.display = "none"
+          document.getElementById("fullpage").style.overflow = "visible";
+        }
+
+  </script>
+  <title>Maps</title>
+</head>
+<body id = "fullpage">
+    <div id = "home" style = "font-family: Quicksand;">
+      <div class="topnav" id="navbar">
+          <div id="logindiv">
+              <img src= "/static/logo.png" width = 65 height = 75 style="margin-bottom: 500px; max-width:100%;max-height:90%;"/>
+              <span id="logintext"> <span style = "color: rgb(179, 86, 0);">Helping</span>Hand</span>
+          </div>
+
+          <div id="links">
+              <!-- <a href="#login">Login</a> -->
+              <a href="javascript:openForm();">Request</a>
+              <a>|</a>
+              <a href="javascript:openFAQ();">About</a>
+              <a href="javascript:openFAQ();">FAQ</a>
+              <!-- <a href="#map_sidenav">Map</a> -->
+          </div>  
+        </div>
+    </div>
+
+    <div class="popup">
+      <div class="form-popup" id="popupForm">
+        <form action="/add/" method="POST" class="form-container" style="font-size:12px;">
+          <h2 style="text-align: center;">Item Request Form</h2>
+          <!-- <label for="fullname">
+            <strong>Full Name</strong>
+          </label> -->
+          <input type="text" id="name" placeholder="Your Name" name="name" required style="padding:10px;">
+          <br>
+          <br>
+          <!-- <label for="address">
+            <strong>Address</strong>
+          </label> -->
+          <input type = "text" id="street" placeholder="Street Address" name="street" style="padding:10px;" required>
+          <input type = "text" id="city" placeholder="City" name="city" style="padding:10px;" required>
+          <input type = "text" id="state" placeholder="State/Province" name="state" style="padding:10px;" required>
+          <input type = "text" id="zip" placeholder="Postal/Zip Code" name="zip" style="padding:10px;"required>
+          <br>
+          <br>
+          <input type="text" id="itemneeded" placeholder="Item Needed" name="itemneeded" style="padding:10px;" required>
+          <br>
+          <br>
+          <button type="submit" class="btn">Submit Form</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" ">
+      <div class="faq-popup" id="FAQmodal" style = "width: 50%; height: 50%; background-color: white; text-align: center; overflow: scroll;">
+          <h2 style = "font-size: 40px;">FAQ</h2>
+          <span class = "question">How do I use this app?</span> <br> <br>
+          <span class="answer"> <span style="color: rgb(179, 86, 0); font-weight: bolder;">Donators</span> : scroll to the bottom of this form and input your information.</span> <br>
+          <span class="answer"> <span style= "color: rgb(255, 218, 166); font-weight: bolder;">Recievers</span> : Make a request in the top right of the navigation bar.</span>
+
+          <br> <br> <br>
+
+          <span class="question">What is the purpose of this app?</span> <br> <br>
+          <span class="answer">In light of the recent developments of COVID-19, fear has prompted members of society to stock up on resources, restricting resources for the rest of society. In addition to the limited resources, members of society who are more susceptible to contracting the virus, including elderly and immunocompromised, are unable to leave their homes. Through its simple to use interface, this app was created with the intention of helping those with limited access to resources.</span> <br>
+
+          <form action="/setaddress/" method="POST" class="form-container" style="font-size:12px;">
+            <h2 style="text-align: center;">For Donators:</h2>
+            <input type="text" id="name_origin" placeholder="Your Name" name="name_origin" required style="padding:10px;">
+            <br>
+            <input type="text" id="street_origin" placeholder="Street Address" name="street_origin" style="padding:10px;" required>
+            <input type="text" id="city_origin" placeholder="City" name="city_origin" style="padding:10px;" required>
+            <input type="text" id="state_origin" placeholder="State/Province" name="state_origin" style="padding:10px;" required>
+            <input type="text" id="zip_origin" placeholder="Postal/Zip Code" name="zip_origin" style="padding:10px;" required>
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn">Submit Form</button>
+          </form>
+      </div>
+    </div>
+
+    <!-- <div class="popup" ">
+      <div class=" about-popup" id="ABOUTmodual"
+      style="width: 50%; height: 50%; background-color: white; text-align: center; overflow: scroll;">
+      <h2 style="font-size: 40px;">FAQ</h2>
+      <span class="question">How do I use this app?</span> <br> <br>
+      <span class="answer"> <span style="color: rgb(179, 86, 0); font-weight: bolder;">Donaters</span> : scroll to the
+        bottom of this form and input your information.</span> <br>
+      <span class="answer"> <span style="color: rgb(255, 218, 166); font-weight: bolder;">Recievers</span> : Make a request
+        in the top right of the navigation bar.</span>
+    
+      <br> <br> <br>
+    
+      <span class="question">What is the purpose of this app?</span> <br> <br>
+      <span class="answer">In light of the recent developments of COVID-19, fear has prompted members of society to stock up
+        on resources, restricting resources for the rest of society. In addition to the limited resources, members of
+        society who are more susceptible to contracting the virus, including elderly and immunocompromised, are unable to
+        leave their homes. Through its simple to use interface, this app was created with the intention of helping those
+        with limited access to resources.</span> <br>
+    
+     
+    </div>
+    </div> -->
+    
+    <div id = "map_sidenav" style = 'font-family: Quicksand; '>
+      <div id = "map">
+        <script>
+
+          mapboxgl.accessToken = '{{ mbat }}';
+          
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [-77.1, 38.8],
+            zoom: 10
+          });
+          
+          map.addControl(new mapboxgl.NavigationControl());
+
+          var geojson = {
+              type: 'FeatureCollection',
+              features: []
+          };
+          
+          {% for address in list_new %}
+            geojson["features"].push({
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: {{address[0]}}
+                },
+                properties: {
+                  title: '{{address[1]}}',
+                  description: '{{address[2]}}',
+                  identifier: '{{address[3]}}'
+                }
+              })
+          {% endfor %}
+          
+          
+          console.log(geojson)
+          
+          geojson.features.forEach(function (marker) {
+              console.log(marker.geometry.coordinates)
+          
+              // create a HTML element for each feature
+              var el = document.createElement('div');
+              el.className = 'marker';
+          
+              button_html = `<form class="form-group" action="/remove/${marker.properties.identifier}/" method="POST"><input type="text" id="phone_number" name="phone_number"><button type="submit" class="btn btn-primary">Sponsor</button></form>`
+              final_html = '<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>' + button_html
+              console.log(final_html)
+              // make a marker for each feature and add to the map
+              new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) 
+                .setHTML(final_html))
+                .addTo(map);
+            })
+          
+          
+          
+          </script>
+        
+      
+      </div>
+
+
+      <div id = "sidenav">
+        <div id = "sidenav_header">
+            <span style = "font-size: 35px; position:relative; top: 22%; color: white; left: 9%; border-left: 3px solid white; padding-left: 10px;">Recipients</span>
+        </div>
+        <div id = "membersinfo">
+          {% for address in list_new %}
+          <div class = "memberdiv" style="font-size:16px; text-align: center">
+                <span class = "name"> <span class = "colored">{{ address[1] }}</span> </span>
+                <br>
+                
+                <span class="items"> <span class = "colored">{{address[2]}}</span> </span>
+                <br>
+                
+                <br>
+                
+            </div>
+          {% endfor %}
+          <div class="memberdiv">
+            </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+</body>
+</html>
